@@ -26,7 +26,7 @@ export default function FooterCom() {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3">
             <div>
-              <Footer.Title title="About" />
+              <Footer.Title title="About"  />
               <Footer.LinkGroup col>
                 <Footer.Link href="#" target="_blank" rel="noopener noreferrer">
                   100 js projects
