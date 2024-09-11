@@ -8,6 +8,7 @@ import {
 } from "../redux/user/userSlice.js";
 
 import { useDispatch, useSelector } from "react-redux";
+import Oauth from "../components/Oauth.jsx";
 
 export default function Signin() {
   const [formData, setFormData] = useState({});
@@ -92,9 +93,10 @@ export default function Signin() {
                   <Spinner size={"sm"} /> <span className="pl-3">Loading</span>
                 </>
               ) : (
-                "Sign Up"
+                "Sign In"
               )}
             </Button>
+            <Oauth/>
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Don't have an account</span>

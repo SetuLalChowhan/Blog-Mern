@@ -8,12 +8,13 @@ import {
 } from "../redux/user/userSlice.js";
 
 import { useDispatch, useSelector } from "react-redux";
+import Oauth from "../components/Oauth.jsx";
 
 export default function Signup() {
   const [formData, setFormData] = useState({});
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
 
-  const {loading,error:errorMessage} = useSelector(state=>state.user)
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -23,11 +24,11 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.username || !formData.email || !formData.password) {
-      return dispatch(signInFailure("Please fill all the fields"))
+      return dispatch(signInFailure("Please fill all the fields"));
     }
 
     try {
-      dispatch(signInStart()) 
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,15 +36,14 @@ export default function Signup() {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInFailure(data.message))
+        dispatch(signInFailure(data.message));
       }
       if (res.ok) {
         navigate("/sign-in");
-        dispatch(signInSuccess(data))
+        dispatch(signInSuccess(data));
       }
     } catch (error) {
-      dispatch(signInFailure(error.message))
-    
+      dispatch(signInFailure(error.message));
     }
   };
   return (
@@ -105,6 +105,7 @@ export default function Signup() {
                 "Sign Up"
               )}
             </Button>
+            <Oauth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Have an Account</span>
