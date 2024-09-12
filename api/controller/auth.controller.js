@@ -111,10 +111,10 @@ export const googleAuth = async (req, res, next) => {
           httpOnly: true,
         })
         .json(rest);
-        console.log(token)
+     
     }
   } catch (error) {
     next(error);
-    console.log(error)
+    console.log(error);
   }
 };
