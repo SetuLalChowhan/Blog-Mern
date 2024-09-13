@@ -53,7 +53,7 @@ export const signin = async (req, res, next) => {
       return next(errorHandler(400, "User not Found"));
     }
 
-    const token = jwt.sign({ id: validPassword._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
 
