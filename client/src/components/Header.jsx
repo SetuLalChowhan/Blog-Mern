@@ -46,18 +46,18 @@ export default function Header() {
             }
           >
             <Dropdown.Header>
-              <spna
+              <span
                 className="block texm-sm
   "
               >
                 @{currentUser.username}
-              </spna>
-              <spna
+              </span>
+              <span
                 className="block texm-sm font-medium truncate
   "
               >
                 {currentUser.email}
-              </spna>
+              </span>
             </Dropdown.Header>
             <Link to={'/dashboard?tab=profile'}>
             <Dropdown.Item>profile</Dropdown.Item>
