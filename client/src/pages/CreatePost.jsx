@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button, FileInput, Select, TextInput } from "flowbite-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 export default function CreatePost() {
+    const quillRef = useRef(null);
   return (
     <div className=" p-3 max-w-7xl mx-auto min-h-screen 0">
       <h1 className="text-center text-3xl my-7 font-semibold">Create a Post</h1>
@@ -34,7 +35,7 @@ export default function CreatePost() {
             Upload Image
           </Button>
         </div>
-        <ReactQuill theme="snow" placeholder="Write something....." className="h-72 mb-12 " required />
+        <ReactQuill ref={quillRef} theme="snow" placeholder="Write something....." className="h-72 mb-12 " required />
         <Button type="submit" gradientDuoTone={"purpleToPink"} >Publish</Button>
       </form>
     </div>
