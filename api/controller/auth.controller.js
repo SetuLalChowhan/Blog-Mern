@@ -53,7 +53,7 @@ export const signin = async (req, res, next) => {
       return next(errorHandler(400, "User not Found"));
     }
 
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: validUser._id,isAdmin:validUser.isAdmin }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
 
@@ -76,7 +76,7 @@ export const googleAuth = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (user) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: user._id,isAdmin:user.isAdmin }, process.env.JWT_SECRET, {
         expiresIn: "24h",
       });
       const { password: pass, ...rest } = user._doc;
@@ -101,7 +101,7 @@ export const googleAuth = async (req, res, next) => {
       });
 
       await newUser.save();
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: newUser._id ,isAdmin:user.isAdmin}, process.env.JWT_SECRET, {
         expiresIn: "24h",
       });
       const { password: pass, ...rest } = validUser._doc;
