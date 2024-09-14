@@ -17,11 +17,13 @@ import {
   deleteStart,
   deleteSuccess,
   deleteFailure,
+  singOutSuccess,
+  signInSuccess
 } from "../redux/user/userSlice.js";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export default function DashProfile() {
-  const { currentUser,error } = useSelector((state) => state.user);
+  const { currentUser, error } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
@@ -142,15 +144,31 @@ export default function DashProfile() {
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
       });
-      const data =await res.json();
-      if(!res.ok){
+      const data = await res.json();
+      if (!res.ok) {
         dispatch(deleteFailure(data.message));
-      }else{
-        dispatch(deleteSuccess(data))
+      } else {
+        dispatch(deleteSuccess(data));
       }
     } catch (error) {
       dispatch(deleteFailure(error.message));
-      console.log(error)
+      console.log(error);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch(`/api/user/signout`, {
+        method: "POST",
+      });
+      const data =await res.json()
+      if(!res.ok){
+        console.log(data.message)
+      }else{
+        dispatch(singOutSuccess())
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -238,7 +256,9 @@ export default function DashProfile() {
         >
           Delete Account
         </span>
-        <span className=" cursor-pointer">Sign Out</span>
+        <span className=" cursor-pointer" onClick={handleSignOut}>
+          Sign Out
+        </span>
       </div>
       {updateUserSuccess && (
         <Alert color={"success"} className="mt-5">
