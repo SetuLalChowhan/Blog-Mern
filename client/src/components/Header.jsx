@@ -3,13 +3,13 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {} from "react-icons";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon,FaSun } from "react-icons/fa";
-import { useSelector ,useDispatch} from "react-redux";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
 import { toggoleTheme } from "../redux/theme/themeSlice";
 import { singOutSuccess } from "../redux/user/userSlice";
 export default function Header() {
   const path = useLocation().pathname;
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const handleSignOut = async () => {
@@ -17,11 +17,11 @@ export default function Header() {
       const res = await fetch(`/api/user/signout`, {
         method: "POST",
       });
-      const data =await res.json()
-      if(!res.ok){
-        console.log(data.message)
-      }else{
-        dispatch(singOutSuccess())
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(singOutSuccess());
       }
     } catch (error) {
       console.log(error.message);
@@ -51,8 +51,15 @@ export default function Header() {
         <AiOutlineSearch />
       </Button>
       <div className="flex gap-2 md:order-2 ">
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={()=>{dispatch(toggoleTheme())}}>
-          {theme==="light"?<FaSun/>:<FaMoon />}
+        <Button
+          className="w-12 h-10 hidden sm:inline"
+          color="gray"
+          pill
+          onClick={() => {
+            dispatch(toggoleTheme());
+          }}
+        >
+          {theme === "light" ? <FaSun /> : <FaMoon />}
         </Button>
         {currentUser ? (
           <Dropdown
@@ -76,12 +83,11 @@ export default function Header() {
                 {currentUser.email}
               </span>
             </Dropdown.Header>
-            <Link to={'/dashboard?tab=profile'}>
-            <Dropdown.Item>profile</Dropdown.Item>
+            <Link to={"/dashboard?tab=profile"}>
+              <Dropdown.Item>profile</Dropdown.Item>
             </Link>
-            <Dropdown.Divider/>
+            <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
-            
           </Dropdown>
         ) : (
           <Link to="/sign-in">
