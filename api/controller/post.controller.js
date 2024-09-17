@@ -10,10 +10,10 @@ export const createPost = async (req, res, next) => {
   }
 
   const slug = req.body.title
-    .split(" ")
-    .join("-")
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9-]/g, "-");
+  .split(' ')
+  .join('-')
+  .toLowerCase()
+  .replace(/[^a-zA-Z0-9-]/g, '');;
   const newPost = new Post({
     ...req.body,
     slug,
