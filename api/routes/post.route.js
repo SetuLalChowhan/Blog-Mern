@@ -5,6 +5,6 @@ import { createPost, getposts } from '../controller/post.controller.js';
 const router = express.Router();
 
 router.post("/create",verifyToken,createPost)
-router.post("/getPosts",getposts)
+router.get("/getposts",getposts)
 
 export default router
