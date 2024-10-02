@@ -26,7 +26,7 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 const corsOption = {
-  origin: "http://localhost:5173",
+  origin: "https://blog-mern-wig0.onrender.com",
   credentials: true,
 };
 app.use(cors(corsOption));
