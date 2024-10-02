@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.route.js";
 import postRoutes from "./routes/post.route.js";
 import cookieParser from "cookie-parser";
 import commentRoutes from "./routes/comment.route.js";
+import cors from "cors";
 import path from "path";
 
 import dotenv from "dotenv";
@@ -20,11 +21,16 @@ mongoose
     console.log(err);
   });
 
-const __dirname = path.resolve();
-
 const app = express();
+const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
+const corsOption = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+app.use(cors(corsOption));
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000!");
 });
@@ -33,12 +39,11 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
-const distPath = path.join(__dirname, "client", "dist");
-app.use(express.static(distPath));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(distPath, "index.html"));
-});
 
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
